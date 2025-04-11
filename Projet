@@ -1,1 +1,21 @@
 #include <stdio.h>
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef struct{
+    char* name ;
+    int nb_rounds ;
+    int reload ;
+    char* description ;
+    int special_effects ;
+}SpecialAttack
