@@ -1,7 +1,3 @@
-/*
- * equipe.c
- * Implémentation des fonctions liées aux équipes
- */
 
  #include <stdio.h>
  #include <stdlib.h>

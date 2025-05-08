@@ -3,11 +3,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include "utilis.h" // Include the header for lire_entree_valide
+#include "utilis.h" 
 
 
 
-// Menus et interfaces
 int afficher_menu_principal() {
     clear_terminal();
     printf(BOLD YELLOW "=== MENU PRINCIPAL ===\n" RESET);

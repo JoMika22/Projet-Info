@@ -221,7 +221,6 @@ void executer_tournoi_poule(Tournoi* t) {
         printf("\nAppuie sur Entree pour continuer..."); getchar();
     }
 
-    // Podium
     clear_terminal(); afficher_classement(t);
     printf(BOLD YELLOW "\n=== PODIUM FINAL ===\n" RESET);
     int idx[t->nb_participants]; for (int i=0;i<t->nb_participants;i++) idx[i]=i;

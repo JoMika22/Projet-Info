@@ -1,7 +1,3 @@
-/*
- * personnages.h
- * Définition des structures de personnages et attaques spéciales
- */
 
 #ifndef PERSONNAGES_H
 #define PERSONNAGES_H
