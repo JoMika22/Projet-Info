@@ -14,8 +14,8 @@
      {"Champions League Strike", 2, 4, "Frappe précise enroulée", 0},             // CR7: rapide mais moins puissant
      {"Santoryu Ougi", 3, 6, "Triple attaque éclair", 0},                         // Zoro: puissant, CD normal
      {"Bubble Beam", 2, 4, "Canon à bulles paralysant", 0},                       // Bob: faible mais rapide
-     {"Kamehameha", 4, 6, "Attaque énergétique ultime", 0},                       // Goku: très fort mais long CD
-     {"Muffin Assault", 1, 4, "Muffins empoisonnés avec dégâts sur la durée", 0}  // Muffin Man: faible mais très rapide
+     {"Kamehameha", 4, 6, "Attaque énergétique ", 0},                       // Goku: très fort mais long CD
+     {"Muffin Assault", 1, 4, "Muffins empoisonnés ", 0}  // Muffin Man: faible mais très rapide
  };
  
  

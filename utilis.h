@@ -1,8 +1,4 @@
-/*
- * utils.h
- * Utilitaires pour le jeu de combat
- * Macros de couleurs et fonctions d'animation
- */
+
 
  #ifndef UTILS_H
  #define UTILS_H

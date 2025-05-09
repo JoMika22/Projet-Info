@@ -1,7 +1,7 @@
 
 Ce programme est un jeu de combat en mode texte écrit en C, offrant différents types d'affrontements entre personnages avec des capacités spéciales. Le jeu utilise des animations en console et des mécaniques de combat tour par tour.
 
-Fonctionnalités principales
+## Fonctionnalités principales
 
 - Mode combat classique 2v2 : Affrontez l'IA avec une équipe de 2 personnages.
 - Mode tournoi : Participez à un tournoi à 4 joueurs en format poule.
@@ -9,7 +9,7 @@ Fonctionnalités principales
 - Interface colorée avec animations ASCII lors des combats.
 - Système de combat avec attaques normales, boucliers et attaques spéciales.
 
-Structure du code
+## Structure du code
 
 Le programme est organisé en plusieurs modules :
 
@@ -21,13 +21,13 @@ Le programme est organisé en plusieurs modules :
 - Utilitaires (`utilis.h`, `utilis.c`)** : Fonctions d'aide, animations et formatage.
 - Programme principal (`main.c`)** : Point d'entrée du programme.
 
-Compilation et exécution
+## Compilation et exécution
 
 make
 
 ./main
 
- Guide de jeu
+## Guide de jeu
 
 ### Menu principal
 Le jeu propose trois options :
@@ -35,31 +35,31 @@ Le jeu propose trois options :
 2. Mode Tournoi
 3. Quitter
 
- Mode Combat Classique
+### Mode Combat Classique
 1. Choisissez la difficulté (Facile, Normal, Difficile)
 2. Créez votre équipe en sélectionnant 2 personnages
 3. Affrontez l'équipe IA dans un combat tour par tour
 
-Mode Tournoi
+### Mode Tournoi
 1. Choisissez un personnage pour représenter votre équipe
 2. Participez à un tournoi en format poule contre 3 autres personnages
 3. Chaque match est disputé en un contre un
 4. Le classement est établi par points (3 points par victoire)
 
- Système de combat
+### Système de combat
 Lors de votre tour, vous pouvez choisir entre trois actions :
 1. **Attaque normale** : Inflige des dégâts basés sur vos statistiques d'attaque
 2. **Bouclier** : Réduit les dégâts reçus lors du prochain tour
 3. **Attaque spéciale** : Action puissante avec temps de recharge
 
-Personnages disponibles
+## Personnages disponibles
 
 Le jeu propose 10 personnages jouables avec des statistiques variées :
 - Pikachu, Luffy, Salah, El Primo, Shrek, CR7, Zoro, Bob l'éponge, Goku, Muffin Man
 
 Chaque personnage dispose d'une attaque spéciale unique avec différents effets.
 
- Fonctionnalités techniques
+## Fonctionnalités techniques
 
 - Gestion dynamique de la mémoire
 - Animations visuelles durant les combats
@@ -67,7 +67,7 @@ Chaque personnage dispose d'une attaque spéciale unique avec différents effets
 - Mécanisme d'esquive basé sur l'agilité et la vitesse
 - Interface colorée pour une meilleure lisibilité
 
-  Conseils en jeu
+## Conseils en jeu
 
 - Choisissez vos personnages en fonction de leur équilibre entre attaque et défense
 - Utilisez le bouclier stratégiquement avant de recevoir des attaques puissantes

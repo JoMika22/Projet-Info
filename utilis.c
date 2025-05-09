@@ -35,15 +35,15 @@ int lire_entree_valide(int min, int max) {
         }
 
         // Vérifie que l'entrée contient uniquement des chiffres
-        int is_valid = 1;
+        int est_valide = 1;
         for (size_t i = 0; i < strlen(buffer) - 1; i++) { // -1 pour ignorer le '\n'
             if (buffer[i] < '0' || buffer[i] > '9') {
-                is_valid = 0;
+                est_valide = 0;
                 break;
             }
         }
 
-        if (!is_valid || buffer[strlen(buffer) - 1] != '\n') {
+        if (!est_valide || buffer[strlen(buffer) - 1] != '\n') {
             printf("Choix invalide. Reessayez.\n");
             continue;
         }
