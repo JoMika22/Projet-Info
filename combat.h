@@ -5,8 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include "perso.h" // Ensure consistent definitions for Perso and SpecialAttack
-#include "equipe.h" // Use centralized definition of Equipe
+#include "perso.h" 
+#include "equipe.h" 
 
 // Constantes
 #define MAX_PERSOS 10
