@@ -14,10 +14,9 @@
 // Les actions possibles sont : attaquer, activer un bouclier ou utiliser une attaque spéciale.
 // Modification de la fonction appliquer_action pour ajuster la gestion des jauges
 int appliquer_action(Perso* atk, Perso* def, int action) {
-    // Check if the target is already defeated before performing the action
     if (def->PV <= 0) {
         printf(BOLD RED "%s est déjà KO et ne peut pas être attaqué. Choisissez une autre cible.\n" RESET, def->nom);
-        return -1; // Indicate an invalid choice (-1 signifie qu'il faut rechoisir une cible)
+        return -1;
     }
 
     atk->shield_active = 0; // Réinitialise l'état du bouclier de l'attaquant avant toute action
@@ -113,7 +112,7 @@ int appliquer_action(Perso* atk, Perso* def, int action) {
     if (def->jauge < 0) def->jauge = 0;
     if (def->jauge > 50) def->jauge = 50;
 
-    return 1; // Indicate success
+    return 1; 
 }
 
 // Fonction pour choisir une action pour le joueur
@@ -205,17 +204,17 @@ void gerer_jauges(Equipe* equipe) {
 
 void tour_de_combat(Equipe* j, Equipe* ia) {
     while (1) {
-        // Clear the terminal for a clean display
+        // Efface le terminal pour un affichage propre
         system("clear");
 
-        // Display the current state of both teams
+        // Affiche l'état actuel des deux équipes
         afficher_persos_et_pv(j, ia);
 
-        // Manage gauges for both teams
+        // Gère les jauges pour les deux équipes
         gerer_jauges(j);
         gerer_jauges(ia);
 
-        // Determine the active character with the highest gauge
+        // Détermine le personnage actif avec la jauge la plus élevée
         Perso* actif = NULL;
         Equipe* equipe_actif = NULL;
         Equipe* equipe_adverse = NULL;
@@ -239,17 +238,14 @@ void tour_de_combat(Equipe* j, Equipe* ia) {
             }
         }
 
-        // If no character is ready, continue to the next iteration
         if (!actif) continue;
 
-        // Reset the active character's gauge to 25 instead of 0
         // Ceci permet de conserver une partie de la jauge après l'action
         actif->jauge = 25;  // Modifié: au lieu de mettre à 0, on conserve une partie de la jauge
 
         // Pour les attaques et attaques spéciales, la jauge sera ajustée dans appliquer_action
         // Cette valeur de 25 est la base à laquelle on retire les coûts des actions
 
-        // Handle the player's turn
         if (equipe_actif == j) {
             printf("\nC'est le tour de %s\n", actif->nom);
             int action = choisir_action_joueur(actif);
@@ -270,7 +266,6 @@ void tour_de_combat(Equipe* j, Equipe* ia) {
                 }
             } while (resultat_action == -1); // Recommencer si la cible n'est pas valide
         } else {
-            // Handle the IA's turn
             printf("\nC'est le tour de l'IA (%s)\n", actif->nom);
             int action = choisir_action_ia(actif);
             
@@ -299,7 +294,6 @@ void tour_de_combat(Equipe* j, Equipe* ia) {
             } while (resultat_action == -1); // Recommencer si la cible n'est pas valide
         }
 
-        // Check if one team has been defeated
         int joueur_ko = 1, ia_ko = 1;
         for (int i = 0; i < j->taille; i++) if (j->membres[i]->PV > 0) joueur_ko = 0;
         for (int i = 0; i < ia->taille; i++) if (ia->membres[i]->PV > 0) ia_ko = 0;
