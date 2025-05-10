@@ -7,19 +7,22 @@
 #include <string.h>
 
 // Mode tournoi principal
-void mode_tournoi(Perso** roster) {
+void mode_tournoi(Perso** tab) {
     clear_terminal();
     printf(BOLD YELLOW "\n=== MODE TOURNOI ===\n" RESET);
     
     // Affichage et selection du personnage
-    afficher_menu_personnages(roster);
+    afficher_menu_personnages(tab);
     printf(BOLD CYAN "\nChoisis ton personnage [1-%d] : " RESET, MAX_PERSOS);
     int choix = lire_entree_valide(1, MAX_PERSOS);
     
     // Copie du personnage joueur
     Perso* perso_joueur = malloc(sizeof(Perso));
-    if (!perso_joueur) { perror("malloc perso joueur"); exit(1); }
-    Perso* base = roster[choix-1];
+    if (!perso_joueur) { 
+        perror("malloc perso joueur"); 
+        exit(1); 
+    }
+    Perso* base = tab[choix-1];
     perso_joueur->nom = strdup(base->nom);
     perso_joueur->PVmax = base->PVmax;
     perso_joueur->PV = base->PVmax;
@@ -32,7 +35,7 @@ void mode_tournoi(Perso** roster) {
     perso_joueur->shield_active = 0;
     
     // Creation et execution du tournoi
-    Tournoi* tournoi = creer_tournoi(roster, perso_joueur);
+    Tournoi* tournoi = creer_tournoi(tab, perso_joueur);
     executer_tournoi_poule(tournoi);
 
     // Nettoyage
@@ -41,7 +44,7 @@ void mode_tournoi(Perso** roster) {
 }
 
 // Creation du tournoi
-Tournoi* creer_tournoi(Perso** roster, Perso* joueur) {
+Tournoi* creer_tournoi(Perso** tab, Perso* joueur) {
     Tournoi* t = malloc(sizeof(Tournoi));
     if (!t) { perror("malloc tournoi"); exit(1); }
     strcpy(t->nom, "Tournoi des Champions");
@@ -53,22 +56,25 @@ Tournoi* creer_tournoi(Perso** roster, Perso* joueur) {
     t->defaites     = calloc(t->nb_participants, sizeof(int));
     t->matchs_joues = calloc(t->nb_participants, sizeof(int));
     if (!t->participants || !t->points || !t->victoires || !t->defaites || !t->matchs_joues) {
-        perror("malloc participants/stats"); exit(1);
+        perror("malloc participants/stats"); 
+        exit(1);
     }
     // Joueur humain en index 0
     t->participants[0] = joueur;
     // Tirage IA
     int used[MAX_PERSOS] = {0};
     for (int i = 0; i < MAX_PERSOS; i++) {
-        if (strcmp(roster[i]->nom, joueur->nom) == 0) { used[i] = 1; break; }
+        if (strcmp(tab[i]->nom, joueur->nom) == 0) { used[i] = 1; break; }
     }
     for (int i = 1; i < t->nb_participants; i++) {
         int r;
         do { r = rand() % MAX_PERSOS; } while (used[r]);
         used[r] = 1;
-        Perso* src = roster[r];
+        Perso* src = tab[r];
         Perso* p = malloc(sizeof(Perso));
-        if (!p) { perror("malloc perso tournoi"); exit(1); }
+        if (!p) { 
+            perror("malloc perso tournoi"); 
+            exit(1); }
         p->nom = strdup(src->nom);
         p->PVmax = src->PVmax;
         p->PV    = src->PVmax;
@@ -141,21 +147,14 @@ void simuler_match(Perso* p1, Perso* p2, int* vainqueur, int afficher) {
             if (p1->special_cd > 0) p1->special_cd--;
             if (p2->special_cd > 0) p2->special_cd--;
         }
-    } else {
+    } 
+    else {
         // Randomly choose the winner for AI matches
         printf("\nMatch: %s vs %s\n", p1->nom, p2->nom);
         *vainqueur = rand() % 2; // Randomly selects 0 or 1
 
-        printf("\n%s a été choisi comme vainqueur au hasard!\n", *vainqueur == 0 ? p1->nom : p2->nom);
-        printf(BOLD "%s%s%s" RESET " contre " BOLD "%s%s%s" RESET " : %s a gagne.\n",
-               *vainqueur==0?GREEN: "", p1->nom, RESET,
-               *vainqueur==1?GREEN: "", p2->nom, RESET,
-               (*vainqueur==0? p1->nom : p2->nom));
     }
-    // En cas d'egalite de PV apres boucle
-    if (p1->PV > 0 && p2->PV > 0) {
-        *vainqueur = (p1->PV > p2->PV) ? 0 : 1;
-    }
+
 }
 
 // Organisation des matchs d'une journee (poule fixe 4 joueurs)
@@ -203,14 +202,26 @@ void executer_tournoi_poule(Tournoi* t) {
     clear_terminal();
     printf(BOLD YELLOW "\n=== TOURNOI %s (FORMAT POULE) ===\n" RESET, t->nom);
     printf("\nParticipants :\n");
-    for (int i=0; i<t->nb_participants; i++) {
-        printf("%s%s%s%s\n",
-               i==0?BOLD GREEN: "", t->participants[i]->nom,
-               i==0?" (TOI)": "", i==0?RESET:"");
+    for (int i = 0; i < t->nb_participants; i++) {
+        if (i == 0) {
+            printf(BOLD GREEN "%s (TOI)" RESET "\n", t->participants[i]->nom);
+        } else {
+            printf("%s\n", t->participants[i]->nom);
+        }
     }
-    printf("\nAppuie sur Entree pour commencer le tournoi..."); getchar();
+    printf("\nAppuie sur Entree pour commencer le tournoi..."); 
+    getchar();
     afficher_classement(t);
-    printf("\nAppuie sur Entree pour commencer les matchs..."); getchar();
+    printf("\nAppuie sur Entree pour commencer les matchs..."); 
+    getchar();
+
+    // Déclaration de l'array idx pour stocker les indices des participants
+    int idx[t->nb_participants];
+
+    // Initialisation des indices
+    for (int i = 0; i < t->nb_participants; i++) {
+        idx[i] = i;
+    }
 
     int nb_j = t->nb_participants - 1;
     for (int j=1; j<=nb_j; j++) {
@@ -222,12 +233,24 @@ void executer_tournoi_poule(Tournoi* t) {
     }
 
     clear_terminal(); afficher_classement(t);
-    printf(BOLD YELLOW "\n=== PODIUM FINAL ===\n" RESET);
-    int idx[t->nb_participants]; for (int i=0;i<t->nb_participants;i++) idx[i]=i;
-    for (int i=0;i<t->nb_participants-1;i++)
-        for (int j=0;j<t->nb_participants-i-1;j++)
-            if (t->points[idx[j]]<t->points[idx[j+1]]) { int tmp=idx[j]; idx[j]=idx[j+1]; idx[j+1]=tmp; }
 
+    // Initialisation des indices
+    for (int i = 0; i < t->nb_participants; i++) {
+        idx[i] = i;
+    }
+
+    // Tri des participants par points (tri à bulles)
+    for (int i = 0; i < t->nb_participants - 1; i++) {
+        for (int j = 0; j < t->nb_participants - i - 1; j++) {
+            if (t->points[idx[j]] < t->points[idx[j + 1]]) {
+                int tmp = idx[j];
+                idx[j] = idx[j + 1];
+                idx[j + 1] = tmp;
+            }
+        }
+    }
+
+    // Affichage du podium
     printf("\n          %s🏆%s\n", BOLD YELLOW, RESET);
     printf("       %s%s%s\n", BOLD MAGENTA, t->participants[idx[0]]->nom, RESET);
     printf("       %s🥇%s\n", BOLD YELLOW, RESET);
@@ -236,24 +259,32 @@ void executer_tournoi_poule(Tournoi* t) {
     printf(" %s🥈%s  |     |  %s🥉%s\n", BOLD CYAN, RESET, BOLD GREEN, RESET);
     printf("_____|     |_____\n");
 
+    // Affichage des résultats
     printf(BOLD MAGENTA "\nChampion: %s avec %d points!\n" RESET,
            t->participants[idx[0]]->nom, t->points[idx[0]]);
     printf(BOLD CYAN    "2eme: %s avec %d points\n" RESET,
            t->participants[idx[1]]->nom, t->points[idx[1]]);
     printf(BOLD GREEN   "3eme: %s avec %d points\n" RESET,
            t->participants[idx[2]]->nom, t->points[idx[2]]);
-    
-    if (idx[0]==0) printf(BOLD YELLOW "\nFelicitations! Tu es champion du tournoi!\n" RESET);
-    else {
-        int place=0;
-        for (int i=0;i<t->nb_participants;i++) if (idx[i]==0) {place=i+1;break;}        
+
+    // Message de félicitations ou position du joueur
+    if (idx[0] == 0) {
+        printf(BOLD YELLOW "\nFelicitations! Tu es champion du tournoi!\n" RESET);
+    } else {
+        int place = 0;
+        for (int i = 0; i < t->nb_participants; i++) {
+            if (idx[i] == 0) {
+                place = i + 1;
+                break;
+            }
+        }
         printf(BOLD CYAN "\nTu as termine a la %deme place.\n" RESET, place);
     }
 
-    // Ajout pour ramener au menu principal
+    // Retour au menu principal
     printf("\nAppuie sur Entree pour revenir au menu principal..."); getchar();
 
-    // Liberation memoire tournoi
+    // Libération de la mémoire du tournoi
     liberer_tournoi(t);
     return;
 }
