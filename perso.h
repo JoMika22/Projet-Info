@@ -1,4 +1,3 @@
-
 #ifndef PERSONNAGES_H
 #define PERSONNAGES_H
 
@@ -25,6 +24,7 @@ typedef struct Perso {
     SpecialAttack* special;
     int special_cd;
     int shield_active;
+    int jauge; // Field to track the attack gauge
 } Perso;
 
 // Prototypes des fonctions
