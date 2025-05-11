@@ -1,76 +1,133 @@
+# Jeu de Combat de Personnages
 
-Ce programme est un jeu de combat en mode texte écrit en C, offrant différents types d'affrontements entre personnages avec des capacités spéciales. Le jeu utilise des animations en console et des mécaniques de combat tour par tour.
+Ce programme est un jeu de combat en mode texte écrit en C, offrant différents types d'affrontements entre personnages avec des capacités spéciales. Le jeu utilise des animations en console et des mécaniques de combat basées sur un système de jauge d'attaque dynamique.
 
 ## Fonctionnalités principales
 
-- Mode combat classique 2v2 : Affrontez l'IA avec une équipe de 2 personnages.
-- Mode tournoi : Participez à un tournoi à 4 joueurs en format poule.
-- 10 personnages jouables avec statistiques et attaques spéciales uniques.
-- Interface colorée avec animations ASCII lors des combats.
-- Système de combat avec attaques normales, boucliers et attaques spéciales.
+- **Mode combat classique 2v2** : Affrontez l'IA avec une équipe de 2 personnages
+- **Mode tournoi** : Participez à un tournoi à 4 joueurs en format poule
+- **10 personnages jouables** avec statistiques et attaques spéciales uniques
+- **Interface colorée** avec animations ASCII lors des combats
+- **Système de jauge d'attaque** rendant les combats plus dynamiques
+- **Mécaniques variées** : attaques normales, boucliers et attaques spéciales
 
 ## Structure du code
 
 Le programme est organisé en plusieurs modules :
 
-- Personnages (`perso.h`, `perso.c`)** : Définition des structures de personnages et attaques spéciales.
-- Équipes (`equipe.h`, `equipe.c`)** : Gestion des équipes de personnages.
-- Combat (`combat.h`, `combat.c`)** : Mécanique de combat et actions des personnages.
-- Tournoi (`tournoi.h`, `tournoi.c`)** : Gestion du mode tournoi.
-- Affichage (`affichage.h`, `affichage.c`)** : Interface utilisateur et menus.
-- Utilitaires (`utilis.h`, `utilis.c`)** : Fonctions d'aide, animations et formatage.
-- Programme principal (`main.c`)** : Point d'entrée du programme.
+- **Personnages (`perso.h`, `perso.c`)** : Définition des structures de personnages et attaques spéciales
+- **Équipes (`equipe.h`, `equipe.c`)** : Gestion des équipes de personnages
+- **Combat (`combat.h`, `combat.c`)** : Mécanique de combat et actions des personnages
+- **Tournoi (`tournoi.h`, `tournoi.c`)** : Gestion du mode tournoi
+- **Affichage (`affichage.h`, `affichage.c`)** : Interface utilisateur et menus
+- **Utilitaires (`utilis.h`, `utilis.c`)** : Fonctions d'aide, animations et formatage
+- **Programme principal (`main.c`)** : Point d'entrée du programme
 
 ## Compilation et exécution
 
+```bash
 make
-
 ./main
+```
 
 ## Guide de jeu
 
 ### Menu principal
+
 Le jeu propose trois options :
 1. Combat Classique 2v2
 2. Mode Tournoi
 3. Quitter
 
 ### Mode Combat Classique
+
 1. Choisissez la difficulté (Facile, Normal, Difficile)
 2. Créez votre équipe en sélectionnant 2 personnages
-3. Affrontez l'équipe IA dans un combat tour par tour
+3. Affrontez l'équipe IA dans un combat avec système de jauge
 
 ### Mode Tournoi
+
 1. Choisissez un personnage pour représenter votre équipe
 2. Participez à un tournoi en format poule contre 3 autres personnages
 3. Chaque match est disputé en un contre un
 4. Le classement est établi par points (3 points par victoire)
 
 ### Système de combat
+
+Le combat est basé sur un système de jauge d'attaque :
+- Chaque personnage possède une jauge qui se remplit progressivement
+- Lorsqu'un personnage atteint 50 points de jauge, il peut effectuer une action
+- Après avoir agi, sa jauge redescend à 25 points
+- La vitesse de remplissage dépend des statistiques du personnage
+
 Lors de votre tour, vous pouvez choisir entre trois actions :
-1. **Attaque normale** : Inflige des dégâts basés sur vos statistiques d'attaque
-2. **Bouclier** : Réduit les dégâts reçus lors du prochain tour
-3. **Attaque spéciale** : Action puissante avec temps de recharge
+1. **Attaque normale** : Inflige des dégâts et coûte 10 points de jauge
+2. **Bouclier** : Réduit les dégâts reçus lors du prochain tour et génère 5 points de jauge
+3. **Attaque spéciale** : Action puissante qui coûte 20 points de jauge et a un temps de recharge
 
 ## Personnages disponibles
 
 Le jeu propose 10 personnages jouables avec des statistiques variées :
-- Pikachu, Luffy, Salah, El Primo, Shrek, CR7, Zoro, Bob l'éponge, Goku, Muffin Man
+- **Pikachu** : Rapide et agile, attaque spéciale électrique
+- **Luffy** : Équilibré, attaque spéciale "Gum Gum"
+- **Salah** : Agile avec une bonne attaque 
+- **El Primo** : Fort en défense mais lent
+- **Shrek** : Grande résistance mais faible agilité
+- **CR7** : Rapide avec des attaques puissantes
+- **Zoro** : Spécialiste de l'attaque, techniques d'épées
+- **Bob l'éponge** : Défensif avec régénération
+- **Goku** : Puissant avec attaque spéciale Kamehameha
+- **Muffin Man** : Personnage mystérieux aux statistiques imprévisibles
 
 Chaque personnage dispose d'une attaque spéciale unique avec différents effets.
 
 ## Fonctionnalités techniques
 
-- Gestion dynamique de la mémoire
-- Animations visuelles durant les combats
-- Système de calcul de dégâts basé sur les statistiques
-- Mécanisme d'esquive basé sur l'agilité et la vitesse
-- Interface colorée pour une meilleure lisibilité
+- **Gestion dynamique de la mémoire** pour éviter les fuites mémoire
+- **Animations visuelles** durant les combats avec délais pour une meilleure expérience
+- **Système de jauge d'attaque** offrant un gameplay plus stratégique
+- **Mécanisme d'esquive** basé sur l'agilité
+- **Interface colorée** pour une meilleure lisibilité avec des émojis pour les barres de vie
+- **Affichage des statistiques** en temps réel pendant les combats
 
 ## Conseils en jeu
 
-- Choisissez vos personnages en fonction de leur équilibre entre attaque et défense
+- Les personnages rapides remplissent leur jauge plus vite, leur permettant d'agir plus fréquemment
 - Utilisez le bouclier stratégiquement avant de recevoir des attaques puissantes
 - Les attaques spéciales ont un temps de recharge, utilisez-les au bon moment
-- En mode tournoi, observez les statistiques et le classements des adversaires pour adapter votre stratégie
+- En mode tournoi, observez les statistiques et le classement des adversaires pour adapter votre stratégie
+- En mode 2v2, les actions de vos personnages génèrent de la jauge pour leurs coéquipiers
 
+## Équipe de développement
+
+- **Rayane** : Combat et utilitaires (`combat.c/h`, `utilis.c/h`)
+- **Lucas** : Équipes et programme principal (`equipe.c/h`, `main.c`)
+- **Joao** : Tournoi et personnages (`tournoi.c/h`, `perso.c/h`)
+
+## Interface
+
+```
+Pikachu (PV: [🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩] 100/100)
+Jauge: [🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜] 25/50
+
+C'est le tour de Pikachu
+Actions : 1.Attaque  2.Shield  3.Special (cd:0)
+```
+
+```
+=== CLASSEMENT DU TOURNOI Tournoi des Champions ===
++-----------------+----+-----+-----+-----+
+| Joueur          | MJ | Vic | Def | Pts |
++-----------------+----+-----+-----+-----+
+| Pikachu         | 3  | 3   | 0   | 9   |
+| Luffy           | 3  | 2   | 1   | 6   |
+| El Primo        | 3  | 1   | 2   | 3   |
+| Muffin Man      | 3  | 0   | 3   | 0   |
++-----------------+----+-----+-----+-----+
+```
+
+## Limitations connues
+
+- Le jeu fonctionne uniquement dans un terminal supportant les codes couleur ANSI
+- Les animations peuvent varier selon la vitesse du terminal
+- Certains personnages peuvent être légèrement déséquilibrés en termes de statistiques
