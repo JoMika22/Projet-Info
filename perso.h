@@ -7,7 +7,6 @@
 typedef struct SpecialAttack {
     char* nom;
     int cooldown_max;
-    int reload;
     char* description;
     int effets; // 0 = dégâts, 1 = bouclier
 } SpecialAttack;
