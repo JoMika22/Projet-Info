@@ -115,7 +115,7 @@ int tenter_esquive(Perso* def) {
     
     // Si le tirage est inférieur à la chance, c'est réussi!
     if (tirage < chance_esquive) {
-        printf(BOLD GREEN "%s esquive l'attaque !\n" RESET, def->nom);
+        printf(BOLD GREEN "%s esquive l'attaque avec une pirouette magistrale!\n" RESET, def->nom);
         return 1; // Esquive réussie
     }
     
